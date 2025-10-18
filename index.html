@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N_m3u8DL-RE Web UI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-download"></i> N_m3u8DL-RE Web Interface</h1>
+            <p>Einfaches Web-Interface für N_m3u8DL-RE Downloads</p>
+        </header>
+
+        <main class="main-content">
+            <div class="form-section">
+                <form id="downloadForm" class="download-form">
+                    <div class="form-group">
+                        <label for="mpdUrl">
+                            <i class="fas fa-link"></i> MPD/M3U8 URL
+                        </label>
+                        <input type="url" id="mpdUrl" name="mpdUrl" placeholder="https://example.com/playlist.mpd" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="licUrl">
+                            <i class="fas fa-certificate"></i> License URL
+                        </label>
+                        <input type="url" id="licUrl" name="licUrl" placeholder="https://cwip-shaka-proxy.appspot.com/no_auth" required>
+                        <small class="help-text">URL für die Widevine-Lizenz (z.B. https://cwip-shaka-proxy.appspot.com/no_auth)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="key">
+                            <i class="fas fa-key"></i> Decryption Key
+                        </label>
+                        <div class="key-input-group">
+                            <input type="text" id="key" name="key" placeholder="5af20cdb999358b1b53ba0d5e3ed2d63:4512c0c303c785401fcd24b0cf1d83ae">
+                            <button type="button" id="generateKeyBtn" class="btn btn-small">
+                                <i class="fas fa-magic"></i> Auto Generate
+                            </button>
+                        </div>
+                        <small class="help-text">Format: key:iv (z.B. 5af20cdb999358b1b53ba0d5e3ed2d63:4512c0c303c785401fcd24b0cf1d83ae)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="format">
+                            <i class="fas fa-file-video"></i> Output Format
+                        </label>
+                        <select id="format" name="format">
+                            <option value="mkv">MKV</option>
+                            <option value="mp4">MP4</option>
+                            <option value="ts">TS</option>
+                            <option value="m4s">M4S</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="outputDir">
+                            <i class="fas fa-folder"></i> Output Directory (optional)
+                        </label>
+                        <input type="text" id="outputDir" name="outputDir" placeholder="./downloads">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filename">
+                            <i class="fas fa-file"></i> Custom Filename (optional)
+                        </label>
+                        <input type="text" id="filename" name="filename" placeholder="my_video">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="previewBtn" class="btn btn-secondary">
+                            <i class="fas fa-eye"></i> Command Preview
+                        </button>
+                        <button type="submit" id="downloadBtn" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Start Download
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <h3><i class="fas fa-terminal"></i> Generated Command</h3>
+                <div class="command-preview">
+                    <code id="commandPreview"></code>
+                    <button type="button" id="copyBtn" class="btn btn-small">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+
+            <div class="log-section" id="logSection" style="display: none;">
+                <h3><i class="fas fa-list"></i> Download Log</h3>
+                <div class="log-output" id="logOutput"></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 N_m3u8DL-RE Web UI</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
